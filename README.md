@@ -22,12 +22,13 @@ npm install watch-property --save
 ```js
 var watch = require('watch-property');
 
-var container = document.getElementById('container'),
-    pressedDisplay = document.getElementById('pressed-display'),
-    nameDisplay = document.getElementById('name-display'),
-    clickDisplay = document.getElementById('click-display'),
-    btn = document.getElementById('click-button'),
-    nameInput = document.getElementById('name-input');
+var byId = document.getElementById.bind(document),
+    container = byId('container'),
+    pressedDisplay = byId('pressed-display'),
+    nameDisplay = byId('name-display'),
+    clickDisplay = byId('click-display'),
+    btn = byId('click-button'),
+    nameInput = byId('name-input');
 
 
 var parameters = {
@@ -40,6 +41,24 @@ var clicksChanged = watch(parameters, 'numClicks'),
     btnIsPressed = watch(parameters, 'pressed', true),
     nameChanged = watch(parameters, 'name');
     
+function onRender(){
+    
+    pressedDisplay.innerHTML = btnIsPressed() ? 'Pressed' : 'Released';
+        
+    if(clicksChanged()){
+        clickDisplay.innerHTML = parameters.numClicks;
+    }
+    if(nameChanged()){
+        nameDisplay.innerHTML = parameters.name;
+    }
+    
+    window.requestAnimationFrame(onRender);
+}
+
+onRender();
+
+
+
 btn.addEventListener('mousedown', function(){
     parameters.pressed = true;
 });
@@ -57,22 +76,6 @@ nameInput.addEventListener('change', function(){
 });
 
 
-
-function onRender(){
-    
-    pressedDisplay.innerHTML = btnIsPressed() ? 'Pressed' : 'Released';
-        
-    if(clicksChanged()){
-        clickDisplay.innerHTML = parameters.numClicks;
-    }
-    if(nameChanged()){
-        nameDisplay.innerHTML = parameters.name;
-    }
-    
-    window.requestAnimationFrame(onRender);
-}
-
-onRender();
 ```
 
 ## Example using watchProperty.any _(alias `some`)_

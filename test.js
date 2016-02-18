@@ -24,9 +24,6 @@ test('should return true when a value has changed since last invocation', functi
         boolChanged   = watch(object, 'bool'),
         nestedChanged = watch(object, 'nested');
 
-
-
-
     t.ok(!numChanged());
     object.num = 1;
     t.ok(numChanged());
@@ -44,9 +41,8 @@ test('should return true when a value has changed since last invocation', functi
     t.ok(!boolChanged());
 
     t.ok(!nestedChanged());
-    //new object, so thats a change
     object.nested = obj();
-    t.ok(nestedChanged());
+    t.ok(nestedChanged(), 'should be a change, its a new object');
     t.ok(!nestedChanged());
 
 
@@ -95,8 +91,7 @@ test('should accept custom assertion for test', function(t){
     t.ok(!changed());
 
     object.nested = obj();
-    //this isnt a change cause im using deepEqual to test
-    t.ok(!changed());
+    t.ok(!changed(), 'should not be a change because the new object is deepEqual to previous');
     object.nested = { b: true };
     t.ok(changed());
 });
@@ -166,13 +161,11 @@ test('continue to report a value as changed when retainInitializationValue is tr
     t.ok(!changed());
     object.bool = !object.bool;
     t.ok(changed());
-    //should continue to report it has changed
-    t.ok(changed());
+    t.ok(changed(), 'should continue to report values as changed');
     t.ok(changed());
 
     object.bool = !object.bool;
-    //should not be considered as changed, as it has returned to its initial value
-    t.ok(!changed());
+    t.ok(!changed(), 'should not be considered as changed as it has returned to initial value');
 });
 
 test('continue to report as changed if any values are different than initialized values when retainInitializationValue is true', function(t){
