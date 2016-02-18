@@ -1,0 +1,33 @@
+{
+  "name": "watch-property",
+  "version": "1.0.0",
+  "description": "watch properties on any object for changes in-between function invocations",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hapticdata/watch-property.git"
+  },
+  "keywords": [
+    "immediate",
+    "gui",
+    "watch",
+    "property",
+    "any",
+    "all",
+    "some",
+    "every"
+  ],
+  "author": "Kyle Phillips",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hapticdata/watch-property/issues"
+  },
+  "homepage": "https://github.com/hapticdata/watch-property#readme",
+  "devDependencies": {
+    "deep-equal": "^1.0.1",
+    "tape": "^4.4.0"
+  }
+}
